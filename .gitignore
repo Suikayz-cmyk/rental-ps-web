@@ -1,0 +1,57 @@
+# ===========================
+# Node modules
+# ===========================
+
+# Backend
+backend/node_modules/
+
+# Frontend
+frontend/node_modules/
+
+# ===========================
+# Build / Distribution
+# ===========================
+
+# Frontend
+frontend/dist/
+
+# Backend (opsional jika ada build)
+backend/dist/
+
+# ===========================
+# Environment variables
+# ===========================
+
+# Backend
+backend/.env
+backend/.env.local
+
+# Frontend
+frontend/.env
+frontend/.env.local
+
+# ===========================
+# Logs
+# ===========================
+
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ===========================
+# IDE / Editor
+# ===========================
+
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# ===========================
+# OS Files
+# ===========================
+
+.DS_Store
+Thumbs.db
