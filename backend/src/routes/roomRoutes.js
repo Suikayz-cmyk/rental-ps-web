@@ -1,16 +1,18 @@
 const express = require('express');
 
 const router =
-express.Router();
+  express.Router();
 
-const {
-  getAllRooms
-} =
-require('../controllers/roomController');
+const { getAllRooms, createRoom} = require('../controllers/roomController');
 
 router.get(
   '/',
   getAllRooms
+);
+
+router.post(
+  '/',
+  createRoom
 );
 
 module.exports = router;

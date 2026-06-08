@@ -23,6 +23,42 @@ const getAllRooms = async (req, res) => {
   }
 };
 
+const createRoom = async (req, res) => {
+  try {
+
+    const {
+      name,
+      psType,
+      pricePerHour,
+      status
+    } = req.body;
+
+    const room =
+      await Room.create({
+        name,
+        psType,
+        pricePerHour,
+        status
+      });
+
+    res.status(201).json({
+      success: true,
+      message:
+        'Ruangan berhasil ditambahkan',
+      data: room
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+
+  }
+};
+
 module.exports = {
-  getAllRooms
+  getAllRooms,
+  createRoom
 };
