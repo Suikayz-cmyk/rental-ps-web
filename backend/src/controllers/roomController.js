@@ -132,9 +132,41 @@ const updateRoom = async (req, res) => {
   }
 };
 
+const deleteRoom = async (req, res) => {
+  try {
+
+    const { id } = req.params;
+
+    const room = await Room.findByPk(id);
+
+    if (!room) {
+      return res.status(404).json({
+        success: false,
+        message: 'Ruangan tidak ditemukan'
+      });
+    }
+
+    await room.destroy();
+
+    res.status(200).json({
+      success: true,
+      message: 'Ruangan berhasil dihapus'
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+
+  }
+};
+
 module.exports = {
   getAllRooms,
   getRoomById,
   createRoom,
-  updateRoom
+  updateRoom,
+  deleteRoom
 };
