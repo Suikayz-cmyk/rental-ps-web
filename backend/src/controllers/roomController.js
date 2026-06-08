@@ -58,7 +58,38 @@ const createRoom = async (req, res) => {
   }
 };
 
+const getRoomById = async (req, res) => {
+  try {
+
+    const { id } = req.params;
+
+    const room = await Room.findByPk(id);
+
+    if (!room) {
+      return res.status(404).json({
+        success: false,
+        message: 'Ruangan tidak ditemukan'
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: 'Detail ruangan berhasil diambil',
+      data: room
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+
+  }
+};
+
 module.exports = {
   getAllRooms,
-  createRoom
+  createRoom,
+  getRoomById
 };
