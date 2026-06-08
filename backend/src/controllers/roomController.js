@@ -88,8 +88,53 @@ const getRoomById = async (req, res) => {
   }
 };
 
+const updateRoom = async (req, res) => {
+  try {
+
+    const { id } = req.params;
+
+    const room = await Room.findByPk(id);
+
+    if (!room) {
+      return res.status(404).json({
+        success: false,
+        message: 'Ruangan tidak ditemukan'
+      });
+    }
+
+    const {
+      name,
+      psType,
+      pricePerHour,
+      status
+    } = req.body;
+
+    await room.update({
+      name,
+      psType,
+      pricePerHour,
+      status
+    });
+
+    res.status(200).json({
+      success: true,
+      message: 'Ruangan berhasil diperbarui',
+      data: room
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+
+  }
+};
+
 module.exports = {
   getAllRooms,
+  getRoomById,
   createRoom,
-  getRoomById
+  updateRoom
 };

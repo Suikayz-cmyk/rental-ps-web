@@ -3,7 +3,12 @@ const express = require('express');
 const router =
   express.Router();
 
-const { getAllRooms, createRoom, getRoomById} = require('../controllers/roomController');
+const {
+  getAllRooms,
+  getRoomById,
+  createRoom,
+  updateRoom
+} = require('../controllers/roomController');
 
 router.get(
   '/',
@@ -19,5 +24,7 @@ router.get(
   '/:id',
   getRoomById
 );
+
+router.put('/:id', updateRoom);
 
 module.exports = router;
