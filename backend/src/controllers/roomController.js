@@ -33,18 +33,16 @@ const createRoom = async (req, res) => {
       status
     } = req.body;
 
-    const room =
-      await Room.create({
-        name,
-        psType,
-        pricePerHour,
-        status
-      });
+    const room = await Room.create({
+      name,
+      psType,
+      pricePerHour,
+      status
+    });
 
     res.status(201).json({
       success: true,
-      message:
-        'Ruangan berhasil ditambahkan',
+      message: 'Ruangan berhasil ditambahkan',
       data: room
     });
 

@@ -3,6 +3,9 @@ const express = require('express');
 const router =
   express.Router();
 
+const validateRoom =
+  require('../middleware/roomValidation');
+
 const {
   getAllRooms,
   getRoomById,
@@ -13,11 +16,19 @@ const {
 
 router.get('/', getAllRooms);
 
-router.post('/', createRoom);
-
 router.get('/:id', getRoomById);
 
-router.put('/:id', updateRoom);
+router.post(
+  '/',
+  validateRoom,
+  createRoom
+);
+
+router.put(
+  '/:id',
+  validateRoom,
+  updateRoom
+);
 
 router.delete('/:id', deleteRoom);
 
