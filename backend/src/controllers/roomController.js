@@ -54,6 +54,7 @@ const createRoom = async (req, res) => {
     });
 
   }
+  console.log(req.admin);
 };
 
 const getRoomById = async (req, res) => {

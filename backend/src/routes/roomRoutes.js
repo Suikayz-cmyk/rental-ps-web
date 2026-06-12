@@ -14,14 +14,24 @@ const {
   deleteRoom
 } = require('../controllers/roomController');
 
+const authMiddleware =
+  require('../middleware/authMiddleware');
+
 router.get('/', getAllRooms);
 
 router.get('/:id', getRoomById);
 
 router.post(
   '/',
+  authMiddleware,
   validateRoom,
   createRoom
+);
+
+router.delete(
+  '/:id',
+  authMiddleware,
+  deleteRoom
 );
 
 router.put(

@@ -14,4 +14,12 @@ app.use(
   roomRoutes
 );
 
+const authRoutes =
+  require('./routes/authRoutes');
+
+app.use(
+  '/api/auth',
+  authRoutes
+);
+
 module.exports = app;
