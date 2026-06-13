@@ -6,6 +6,8 @@ const sequelize = require('./config/database');
 require('./models/Room');
 require('./models/Admin');
 
+require('./models/Booking');
+
 const PORT = process.env.PORT || 5000;
 
 async function startServer() {
