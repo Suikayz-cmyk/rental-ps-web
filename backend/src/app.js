@@ -11,6 +11,11 @@ const transactionRoutes =
   require(
     './routes/transactionRoutes');
 
+const dashboardRoutes =
+  require(
+    './routes/dashboardRoutes'
+  );
+
 const app = express();
 
 app.use(cors());
@@ -29,6 +34,11 @@ app.use(
 app.use(
   '/api/transactions',
   transactionRoutes
+);
+
+app.use(
+  '/api/dashboard',
+  dashboardRoutes
 );
 
 const authRoutes =
