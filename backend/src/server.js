@@ -3,10 +3,7 @@ require('dotenv').config();
 const app = require('./app');
 const sequelize = require('./config/database');
 
-require('./models/Room');
-require('./models/Admin');
-
-require('./models/Booking');
+require('./models');
 
 const PORT = process.env.PORT || 5000;
 
@@ -15,7 +12,9 @@ async function startServer() {
     await sequelize.authenticate();
     console.log('Database Connected');
 
-    await sequelize.sync();
+    await sequelize.sync({
+      alter: true
+    });
     console.log('Database Synced');
 
     app.listen(PORT, () => {
