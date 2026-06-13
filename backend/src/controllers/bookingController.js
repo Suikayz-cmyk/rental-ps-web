@@ -1,5 +1,8 @@
-const { Room, Booking } =
-  require('../models');
+const {
+  Room,
+  Booking,
+  Transaction
+} = require('../models');
 
 const createBooking =
   async (req, res) => {
@@ -101,6 +104,12 @@ const finishBooking =
 
       await booking.update({
         status: 'finished'
+      });
+
+      await Transaction.create({
+        bookingId: booking.id,
+        amount: booking.totalPrice,
+        paymentStatus: 'paid'
       });
 
       await room.update({

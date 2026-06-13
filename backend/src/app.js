@@ -7,6 +7,10 @@ require('./routes/roomRoutes');
 const bookingRoutes =
   require('./routes/bookingRoutes');
 
+const transactionRoutes =
+  require(
+    './routes/transactionRoutes');
+
 const app = express();
 
 app.use(cors());
@@ -20,6 +24,11 @@ app.use(
 app.use(
   '/api/bookings',
   bookingRoutes
+);
+
+app.use(
+  '/api/transactions',
+  transactionRoutes
 );
 
 const authRoutes =
