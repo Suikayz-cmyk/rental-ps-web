@@ -1,0 +1,283 @@
+/* Struktur Utama */
+.room-management-container {
+  display: flex;
+  background-color: #0b0e14; /* Latar belakang gelap sesuai gambar */
+  color: #ffffff;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.room-content {
+  padding: 30px;
+  flex: 1;
+}
+
+/* Bagian Header */
+.room-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.room-header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.room-header p {
+  margin: 5px 0 0 0;
+  color: #717a8c;
+  font-size: 14px;
+}
+
+/* Tombol Aksi Tambah Ruangan Atas */
+.btn-add-header {
+  background-color: #009688;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s;
+}
+
+.btn-add-header:hover {
+  background-color: #00796b;
+}
+
+/* Panel Form Input (Inline Box) */
+.form-inline-box {
+  display: flex;
+  gap: 12px;
+  background-color: #0e1726;
+  border: 1px solid #192130;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  align-items: center;
+}
+
+.form-inline-box input,
+.form-inline-box select {
+  background-color: #0b0e14;
+  border: 1px solid #192130;
+  color: #ffffff;
+  padding: 10px 15px;
+  border-radius: 6px;
+  outline: none;
+  font-size: 14px;
+  flex: 1;
+}
+
+.form-inline-box input:focus,
+.form-inline-box select:focus {
+  border-color: #009688;
+}
+
+.btn-submit-room {
+  background-color: #009688;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Desain Tabel Modern */
+.table-responsive {
+  background-color: #0e1726;
+  border: 1px solid #192130;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.modern-table th {
+  color: #717a8c;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 16px;
+  border-bottom: 1px solid #192130;
+  text-transform: uppercase;
+}
+
+.modern-table td {
+  padding: 16px;
+  border-bottom: 1px solid #192130;
+  font-size: 14px;
+  color: #e0e6ed;
+}
+
+.modern-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Teks Utama di Tabel */
+.text-room-name {
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.text-price {
+  color: #00eeff;
+  font-weight: 500;
+}
+
+/* Lencana / Badge Tags */
+.badge-ps {
+  background-color: rgba(124, 77, 255, 0.15);
+  color: #b388ff;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-status-room {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.badge-status-room.kosong {
+  background-color: rgba(0, 150, 136, 0.15);
+  color: #00eeff;
+}
+
+.badge-status-room.dipakai {
+  background-color: rgba(226, 160, 63, 0.15);
+  color: #ffb74d;
+}
+
+/* Tombol Aksi (Edit & Hapus) */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-action {
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.btn-action.edit {
+  background-color: rgba(33, 150, 243, 0.1);
+  color: #2196f3;
+  border: 1px solid rgba(33, 150, 243, 0.2);
+}
+
+.btn-action.edit:hover {
+  background-color: #2196f3;
+  color: white;
+}
+
+.btn-action.delete {
+  background-color: rgba(231, 81, 90, 0.1);
+  color: #e7515a;
+  border: 1px solid rgba(231, 81, 90, 0.2);
+}
+
+.btn-action.delete:hover {
+  background-color: #e7515a;
+  color: white;
+}
+/* Struktur Layout Vertikal Form di dalam Modal */
+.form-group-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.form-group-vertical label {
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.form-group-vertical input,
+.modal-select-status {
+  background-color: #1e1b2e;
+  border: 1px solid #334155;
+  color: #ffffff;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+}
+
+/* Desain Pilihan Tombol Jenis PS (Segmented) */
+.ps-type-segmented {
+  display: flex;
+  background-color: #1e1b2e;
+  border: 1px solid #334155;
+  padding: 4px;
+  border-radius: 8px;
+  gap: 4px;
+}
+
+.segmented-btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #64748b;
+  padding: 10px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.segmented-btn.active {
+  background-color: #06b6d4; /* Warna cyan cerah sesuai gambar */
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
+}
+
+/* Tombol Aksi di Bawah Modal */
+.btn-modal-cancel {
+  flex: 1;
+  background-color: #242238;
+  border: 1px solid #334155;
+  color: #94a3b8;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-modal-update {
+  flex: 1;
+  background-color: #06b6d4;
+  border: none;
+  color: #ffffff;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-modal-update:hover {
+  background-color: #0891b2;
+}

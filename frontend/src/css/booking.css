@@ -1,0 +1,224 @@
+/* Struktur Utama */
+.booking-page-container {
+  display: flex;
+  background-color: #0b0e14; /* Latar belakang gelap konstan */
+  color: #ffffff;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.booking-content {
+  padding: 30px;
+  flex: 1;
+}
+
+/* Bagian Header atas */
+.booking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.booking-header h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.booking-header p {
+  margin: 5px 0 0 0;
+  color: #717a8c;
+  font-size: 14px;
+}
+
+/* Tombol + Tambah Pesanan */
+.btn-toggle-form {
+  background-color: #009688;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-toggle-form:hover {
+  background-color: #00796b;
+}
+
+/* Inline Form Box */
+.form-inline-box {
+  display: flex;
+  gap: 12px;
+  background-color: #0e1726;
+  border: 1px solid #192130;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  align-items: center;
+}
+
+.form-inline-box input,
+.form-inline-box select {
+  background-color: #0b0e14;
+  border: 1px solid #192130;
+  color: #ffffff;
+  padding: 10px 15px;
+  border-radius: 6px;
+  outline: none;
+  font-size: 14px;
+  flex: 1;
+}
+
+.form-inline-box input:focus,
+.form-inline-box select:focus {
+  border-color: #009688;
+}
+
+.btn-submit-booking {
+  background-color: #009688;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Desain List Kartu Sesi Pemesanan Aktif */
+.booking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.booking-card {
+  background-color: #0e1726;
+  border: 1px solid #192130;
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+}
+
+/* Info Atas Kartu */
+.booking-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.customer-name-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.icon-user {
+  color: #00eeff;
+}
+
+.badge-playing {
+  background-color: rgba(226, 160, 63, 0.15);
+  color: #ffb74d;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.room-detail-sub {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #717a8c;
+}
+
+/* Tombol Hapus Pojok Kanan */
+.btn-delete-absolute {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #e7515a;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 5px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.btn-delete-absolute:hover {
+  background-color: rgba(231, 81, 90, 0.1);
+}
+
+/* Grid Spesifikasi Durasi & Total */
+.booking-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.spec-box {
+  background-color: #101928;
+  border: 1px solid #192130;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+}
+
+.spec-label {
+  color: #717a8c;
+  font-size: 12px;
+  margin: 0 0 5px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.spec-value {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.spec-value.highlight-total {
+  color: #00eeff;
+}
+
+/* Tombol Utama Selesai & Bayar */
+.btn-finish-payment {
+  width: 100%;
+  background-color: rgba(0, 150, 136, 0.1);
+  color: #00eeff;
+  border: 1px solid rgba(0, 150, 136, 0.3);
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-finish-payment:hover {
+  background-color: #009688;
+  color: #ffffff;
+}
+
+/* Keadaan Kosong */
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #717a8c;
+  background-color: #0e1726;
+  border-radius: 12px;
+  border: 1px dashed #192130;
+}

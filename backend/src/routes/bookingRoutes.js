@@ -4,10 +4,18 @@ const router =
   express.Router();
 
 const {
+  getAllBookings,
   createBooking,
   finishBooking,
   cancelBooking
-} = require('../controllers/bookingController');
+} = require(
+  '../controllers/bookingController'
+);
+
+router.get(
+  '/',
+  getAllBookings
+);
 
 router.post(
   '/',
