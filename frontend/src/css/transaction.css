@@ -224,3 +224,120 @@
   color: #e7515a;
 }
 .btn-tx-action.delete:hover { background-color: rgba(231, 81, 90, 0.1); }
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+}
+
+.modal-content {
+  background-color: #0e1726;
+  border: 1px solid #192130;
+  border-radius: 12px;
+  width: 420px;
+  padding: 24px;
+  color: #ffffff;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,.5);
+}
+
+.modal-content h3 {
+  margin: 0 0 20px 0;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  box-sizing: border-box;
+
+  background-color: #0b0e14;
+  border: 1px solid #192130;
+
+  color: #ffffff;
+
+  padding: 12px;
+  border-radius: 8px;
+
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #2196f3;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #717a8c;
+  font-size: 13px;
+  font-weight: 500;
+}
+.modal-actions button:first-child {
+  background-color: #2196f3;
+  color: white;
+
+  border: none;
+  padding: 10px 18px;
+
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.modal-actions button:first-child:hover {
+  background-color: #1976d2;
+}
+
+.modal-actions button:last-child {
+  background-color: transparent;
+
+  color: #717a8c;
+
+  border: 1px solid #192130;
+
+  padding: 10px 18px;
+
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.modal-actions button:last-child:hover {
+  background-color: #192130;
+}
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  background:
+    rgba(0,0,0,.7);
+
+  backdrop-filter: blur(4px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+}

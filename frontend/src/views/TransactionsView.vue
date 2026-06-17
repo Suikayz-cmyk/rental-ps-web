@@ -1,6 +1,10 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import { getTransactions } from "../services/transactionService";
+import {
+  getTransactions,
+  updateTransaction,
+  deleteTransaction
+} from "../services/transactionService";
 import { getRooms } from "../services/roomService"; // Import service ruangan untuk memuat semua kamar
 import "../css/transaction.css";
 
@@ -8,6 +12,26 @@ const transactions = ref([]);
 const allRooms = ref([]); // State untuk menampung semua ruangan yang terdaftar
 const selectedRoom = ref("");
 const selectedDate = ref("");
+
+const showEditModal = ref(false);
+
+const editForm = ref({
+  id: null,
+  amount: 0,
+  paymentStatus: "paid"
+});
+
+const openEditModal = (tx) => {
+
+  editForm.value = {
+    id: tx.id,
+    amount: tx.amount,
+    paymentStatus: tx.paymentStatus
+  };
+
+  showEditModal.value = true;
+
+};
 
 const loadData = async () => {
   try {
@@ -25,6 +49,71 @@ const loadData = async () => {
   } catch (err) {
     console.error("Gagal memuat data:", err);
   }
+};
+
+const saveTransaction = async () => {
+
+  try {
+
+    await updateTransaction(
+      editForm.value.id,
+      {
+        amount:
+          editForm.value.amount,
+        paymentStatus:
+          editForm.value.paymentStatus
+      }
+    );
+
+    showEditModal.value = false;
+
+    await loadData();
+
+    alert(
+      "Transaksi berhasil diperbarui"
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Gagal memperbarui transaksi"
+    );
+
+  }
+
+};
+
+const handleDelete = async (id) => {
+
+  const confirmed =
+    confirm(
+      "Yakin ingin menghapus transaksi?"
+    );
+
+  if (!confirmed) return;
+
+  try {
+
+    await deleteTransaction(id);
+
+    await loadData();
+
+    alert(
+      "Transaksi berhasil dihapus"
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Gagal menghapus transaksi"
+    );
+
+  }
+
 };
 
 // Filter data dinamis (Berdasarkan Ruangan dan Tanggal)
@@ -147,12 +236,18 @@ onMounted(() => {
               <td>{{ tx.Booking?.duration || tx.duration || 1 }}j</td>
               
               <td class="tx-price-text">
-                {{ formatRupiah(tx.totalPrice || tx.Booking?.totalPrice || tx.amount) }}
+                {{ formatRupiah(tx.amount) }}
               </td>
               
               <td>
-                <span class="badge-status-paid">
-                  Lunas
+                <span
+                  :class="
+                    tx.paymentStatus === 'paid'
+                      ? 'badge-status-paid'
+                      : 'badge-status-unpaid'
+                  "
+                >
+                  {{ tx.paymentStatus }}
                 </span>
               </td>
               
@@ -160,8 +255,21 @@ onMounted(() => {
 
               <td>
                 <div class="tx-actions">
-                  <button class="btn-tx-action edit" title="Ubah">✏️</button>
-                  <button class="btn-tx-action delete" title="Hapus">🗑️</button>
+                  <button
+                    class="btn-tx-action edit"
+                    title="Ubah"
+                    @click="openEditModal(tx)"
+                  >
+                    ✏️
+                  </button>
+
+                  <button
+                    class="btn-tx-action delete"
+                    title="Hapus"
+                    @click="handleDelete(tx.id)"
+                  >
+                    🗑️
+                  </button>
                 </div>
               </td>
             </tr>
@@ -173,6 +281,59 @@ onMounted(() => {
             </tr>
           </tbody>
         </table>
+      </div>
+      <div
+        v-if="showEditModal"
+        class="modal-overlay"
+      >
+        <div class="modal-content">
+
+          <h3>Edit Transaksi</h3>
+
+          <div class="form-group">
+            <label>Total Pembayaran</label>
+
+            <input
+              type="number"
+              v-model="editForm.amount"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Status Pembayaran</label>
+
+            <select
+              v-model="editForm.paymentStatus"
+            >
+              <option value="paid">
+                Paid
+              </option>
+
+              <option value="unpaid">
+                Unpaid
+              </option>
+            </select>
+          </div>
+
+          <div class="modal-actions">
+
+            <button
+              @click="saveTransaction"
+            >
+              Simpan
+            </button>
+
+            <button
+              @click="
+                showEditModal = false
+              "
+            >
+              Batal
+            </button>
+
+          </div>
+
+        </div>
       </div>
     </div>
   </div>
