@@ -16,6 +16,14 @@ const dashboardRoutes =
     './routes/dashboardRoutes'
   );
 
+const customerRoutes =
+  require(
+    './routes/customerRoutes'
+  );
+
+const authRoutes =
+  require('./routes/authRoutes');
+
 const app = express();
 
 app.use(cors());
@@ -41,12 +49,14 @@ app.use(
   dashboardRoutes
 );
 
-const authRoutes =
-  require('./routes/authRoutes');
-
 app.use(
   '/api/auth',
   authRoutes
+);
+
+app.use(
+  '/api/customers',
+  customerRoutes
 );
 
 module.exports = app;

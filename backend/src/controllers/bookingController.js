@@ -1,7 +1,8 @@
 const {
   Room,
   Booking,
-  Transaction
+  Transaction,
+  Customer
 } = require('../models');
 
 const getAllBookings = async (req, res) => {
@@ -19,6 +20,14 @@ const getAllBookings = async (req, res) => {
               'psType',
               'pricePerHour',
               'status'
+            ]
+          },
+          {
+            model: Customer,
+            attributes: [
+              'id',
+              'name',
+              'phone'
             ]
           }
         ]
@@ -45,9 +54,23 @@ const createBooking = async (req, res) => {
   try {
 
     const {
+      customerId,
       roomId,
       duration
     } = req.body;
+
+    const customer =
+      await Customer.findByPk(
+        customerId
+      );
+
+    if (!customer) {
+      return res.status(404).json({
+        success: false,
+        message:
+          'Customer tidak ditemukan'
+      });
+    }
 
     const room =
       await Room.findByPk(roomId);
@@ -55,21 +78,24 @@ const createBooking = async (req, res) => {
     if (!room) {
       return res.status(404).json({
         success: false,
-        message: 'Ruangan tidak ditemukan'
+        message:
+          'Ruangan tidak ditemukan'
       });
     }
 
     if (room.status !== 'kosong') {
       return res.status(400).json({
         success: false,
-        message: 'Ruangan sedang digunakan'
+        message:
+          'Ruangan sedang digunakan'
       });
     }
 
     if (duration < 1) {
       return res.status(400).json({
         success: false,
-        message: 'Minimal booking 1 jam'
+        message:
+          'Minimal booking 1 jam'
       });
     }
 
@@ -78,6 +104,7 @@ const createBooking = async (req, res) => {
 
     const booking =
       await Booking.create({
+        customerId,
         roomId,
         duration,
         totalPrice
@@ -89,7 +116,8 @@ const createBooking = async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: 'Booking berhasil dibuat',
+      message:
+        'Booking berhasil dibuat',
       data: booking
     });
 
@@ -97,7 +125,8 @@ const createBooking = async (req, res) => {
 
     res.status(500).json({
       success: false,
-      message: error.message
+      message:
+        error.message
     });
 
   }

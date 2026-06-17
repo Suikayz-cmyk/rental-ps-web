@@ -20,6 +20,11 @@ const Booking = sequelize.define('Booking', {
             'cancelled'
         ),
         defaultValue: 'active'
+    },
+
+    customerId: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 
 });
