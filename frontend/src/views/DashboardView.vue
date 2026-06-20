@@ -22,7 +22,8 @@ const bookings = ref([]);
 // State kontrol Modal / Form Pemesanan Langsung
 const showOrderModal = ref(false);
 const selectedRoomForOrder = ref(null);
-const duration = ref(1); // customerName telah dihapus
+const customerName = ref("");
+const duration = ref(1);
 
 // State kontrol Modal Penyelesaian Sesi & Pembayaran
 const showPaymentModal = ref(false);
@@ -56,7 +57,10 @@ const getActiveBookingForRoom = (roomId) => {
 // --- ALUR FUNGSI AKSES PEMESANAN ---
 const openOrderModal = (room) => {
   selectedRoomForOrder.value = room;
+
+  customerName.value = "";
   duration.value = 1;
+
   showOrderModal.value = true;
 };
 
@@ -66,20 +70,41 @@ const closeOrderModal = () => {
 };
 
 const handleCreateBooking = async () => {
-  if (!selectedRoomForOrder.value || duration.value < 1) {
-    alert("Mohon masukkan durasi bermain dengan benar.");
+
+  if (
+    !customerName.value ||
+    !selectedRoomForOrder.value ||
+    duration.value < 1
+  ) {
+    alert("Lengkapi nama customer dan durasi bermain");
     return;
   }
 
   try {
-    // Memanggil API hanya dengan parameter roomId dan duration sesuai service-mu
-    await createBooking(selectedRoomForOrder.value.id, duration.value);
-    alert(`Booking untuk ${selectedRoomForOrder.value.name} berhasil dibuat!`);
+
+    await createBooking(
+      customerName.value,
+      selectedRoomForOrder.value.id,
+      duration.value
+    );
+
+    alert(
+      `Booking untuk ${selectedRoomForOrder.value.name} berhasil dibuat!`
+    );
+
     closeOrderModal();
-    loadDashboardData(); 
+
+    await loadDashboardData();
+
   } catch (err) {
-    alert(err.response?.data?.message || "Gagal membuat pemesanan langsung");
+
+    alert(
+      err.response?.data?.message ||
+      "Gagal membuat pemesanan langsung"
+    );
+
   }
+
 };
 
 // --- ALUR FUNGSI PENYELESAIAN & PEMBAYARAN ---
@@ -203,6 +228,11 @@ onMounted(() => {
         <div class="modal-body">
           <p class="modal-subtitle">Ruangan: <strong>{{ selectedRoomForOrder?.name }} ({{ selectedRoomForOrder?.psType }})</strong></p>
           
+          <div class="form-group">
+            <label>Nama Customer</label>
+            <input v-model="customerName" type="text" placeholder="Masukkan nama customer" />
+          </div>
+
           <div class="form-group">
             <label>Durasi Bermain (Jam)</label>
             <input v-model="duration" type="number" min="1" placeholder="Contoh: 2" />

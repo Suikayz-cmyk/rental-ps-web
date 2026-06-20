@@ -41,7 +41,11 @@ const addBooking = async () => {
   }
 
   try {
-    await createBooking(selectedRoom.value, duration.value);
+    await createBooking(
+      customerName.value,
+      selectedRoom.value,
+      duration.value
+    );
     alert("Booking berhasil dibuat");
 
     customerName.value = "";
@@ -141,7 +145,9 @@ const formatRupiah = (number) => {
           <div class="booking-card-header">
             <div class="customer-name-wrapper">
               <span class="icon-user">👤</span>
-              <span>{{ customerName || 'Customer' }}</span>
+              <span>
+                {{ booking.Customer?.name || 'Customer' }}
+              </span>
             </div>
             <span class="badge-playing">Sedang Bermain</span>
           </div>

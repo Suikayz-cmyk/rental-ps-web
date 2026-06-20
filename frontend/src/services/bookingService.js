@@ -7,11 +7,18 @@ export const getBookings = async () => {
   return response.data;
 };
 
-export const createBooking = async (roomId, duration) => {
-  const response = await axios.post(API_URL, {
-    roomId,
-    duration,
-  });
+export const createBooking = async (
+  customerName,
+  roomId,
+  duration
+) => {
+
+  const response =
+    await axios.post(API_URL, {
+      customerName,
+      roomId,
+      duration
+    });
 
   return response.data;
 };
