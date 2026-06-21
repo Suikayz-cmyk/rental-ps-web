@@ -5,10 +5,16 @@ import Sidebar from "./components/Sidebar.vue";
 
 const route = useRoute();
 
-// Sidebar hanya disembunyikan di halaman login ("/")
+const publicRoutes = [
+  "/",
+  "/booking",
+  "/admin/login"
+];
+
 const showSidebar = computed(() => {
-  return route.path !== "/";
+  return !publicRoutes.includes(route.path);
 });
+
 </script>
 
 <template>
