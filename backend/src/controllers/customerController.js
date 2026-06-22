@@ -232,11 +232,63 @@ const getCustomerBookings =
 
 };
 
+const registerCustomer =
+  async (req, res) => {
+
+    try {
+
+      const {
+        name,
+        phone
+      } = req.body;
+
+      const existingCustomer =
+        await Customer.findOne({
+          where: {
+            phone
+          }
+        });
+
+      if (existingCustomer) {
+
+        return res.status(400).json({
+          success: false,
+          message:
+            'Nomor HP sudah terdaftar'
+        });
+
+      }
+
+      const customer =
+        await Customer.create({
+          name,
+          phone
+        });
+
+      res.status(201).json({
+        success: true,
+        message:
+          'Registrasi berhasil',
+        data: customer
+      });
+
+    } catch (error) {
+
+      res.status(500).json({
+        success: false,
+        message: error.message
+      });
+
+    }
+
+};
+
 module.exports = {
   getCustomers,
   createCustomer,
   updateCustomer,
   deleteCustomer,
   customerLogin,
-  getCustomerBookings
+  getCustomerBookings,
+  registerCustomer
 };

@@ -66,5 +66,19 @@ const login = async () => {
     >
       Login
     </button>
+
+    <p>
+      Belum punya akun?
+    </p>
+
+    <button
+      @click="
+        router.push(
+          '/customer/register'
+        )
+      "
+    >
+      Register
+    </button>
   </div>
 </template>

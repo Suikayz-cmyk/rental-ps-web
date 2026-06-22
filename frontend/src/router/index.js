@@ -9,6 +9,7 @@ import TransactionsView from "../views/TransactionsView.vue";
 import PublicBookingView from "../views/PublicBookingView.vue";
 import CustomerLoginView from "../views/CustomerLoginView.vue";
 import MyBookingsView from "../views/MyBookingsView.vue";
+import CustomerRegisterView from "../views/CustomerRegisterView.vue";
 
 const routes = [
   {
@@ -50,6 +51,10 @@ const routes = [
 {
   path: "/customer/login",
   component: CustomerLoginView
+},
+{
+  path: "/customer/register",
+  component: CustomerRegisterView
 },
 {
   path: "/my-bookings",

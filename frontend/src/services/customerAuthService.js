@@ -27,3 +27,16 @@ export const getMyBookings =
     return response.data;
 
 };
+
+export const registerCustomer =
+  async (payload) => {
+
+    const response =
+      await axios.post(
+        `${API_URL}/register`,
+        payload
+      );
+
+    return response.data;
+
+};

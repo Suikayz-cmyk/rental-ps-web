@@ -10,8 +10,14 @@ const {
   updateCustomer,
   deleteCustomer,
   customerLogin,
-  getCustomerBookings
+  getCustomerBookings,
+  registerCustomer
 } = require('../controllers/customerController');
+
+router.post(
+  '/register',
+  registerCustomer
+);
 
 router.post(
   '/login',
