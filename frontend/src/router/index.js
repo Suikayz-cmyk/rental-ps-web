@@ -7,15 +7,12 @@ import BookingsView from "../views/BookingsView.vue";
 import TransactionsView from "../views/TransactionsView.vue";
 
 import PublicBookingView from "../views/PublicBookingView.vue";
-import LandingView from "../views/LandingView.vue";
+import CustomerLoginView from "../views/CustomerLoginView.vue";
+import MyBookingsView from "../views/MyBookingsView.vue";
 
 const routes = [
   {
     path: "/",
-    component: LandingView
-  },
-  {
-    path: "/booking",
     component: PublicBookingView
   },
   {
@@ -49,6 +46,14 @@ const routes = [
   meta: {
     requiresAuth: true
   }
+},
+{
+  path: "/customer/login",
+  component: CustomerLoginView
+},
+{
+  path: "/my-bookings",
+  component: MyBookingsView
 }
 ];
 

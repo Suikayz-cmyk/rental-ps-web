@@ -12,7 +12,19 @@ const publicRoutes = [
 ];
 
 const showSidebar = computed(() => {
-  return !publicRoutes.includes(route.path);
+
+  const adminRoutes = [
+    "/dashboard",
+    "/rooms",
+    "/bookings",
+    "/transactions",
+    "/customers"
+  ];
+
+  return adminRoutes.includes(
+    route.path
+  );
+
 });
 
 </script>

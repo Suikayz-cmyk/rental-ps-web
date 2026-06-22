@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 
 import {
   getPublicRooms,
@@ -7,10 +8,11 @@ import {
 } from "../services/publicService";
 
 const rooms = ref([]);
-
+const router = useRouter();
 const name = ref("");
 const phone = ref("");
 const duration = ref(1);
+const customer = ref(null);
 
 const loadRooms = async () => {
   try {
@@ -51,7 +53,13 @@ const bookingRoom = async (roomId) => {
       duration: Number(duration.value)
     });
 
-    alert("Booking berhasil!");
+    alert(
+      "Booking berhasil dibuat!"
+    );
+
+    router.push(
+      "/my-bookings"
+    );
 
     name.value = "";
     phone.value = "";
@@ -64,15 +72,92 @@ const bookingRoom = async (roomId) => {
   }
 };
 
+const logoutCustomer = () => {
+
+  localStorage.removeItem(
+    "customer"
+  );
+
+  location.reload();
+
+};
+
 onMounted(() => {
+
   loadRooms();
+
+  const savedCustomer =
+    localStorage.getItem(
+      "customer"
+    );
+
+  if (savedCustomer) {
+
+    customer.value =
+      JSON.parse(
+        savedCustomer
+      );
+
+    name.value =
+      customer.value.name;
+
+    phone.value =
+      customer.value.phone;
+
+  }
+
 });
 </script>
 
 <template>
   <div style="padding: 30px">
-    <h1>Booking Rental PS</h1>
+    <div
+  style="
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+  "
+>
 
+  <h1>
+    Booking Rental PS
+  </h1>
+
+  <div
+  style="
+    display:flex;
+    gap:10px;
+  "
+>
+
+  <button
+    @click="
+      router.push(
+        '/customer/login'
+      )
+    "
+  >
+    Login Customer
+  </button>
+
+  <button
+    @click="
+      router.push(
+        '/admin/login'
+      )
+    "
+  >
+    Login Admin
+  </button>
+
+  <button
+    @click="logoutCustomer"
+  >
+    Logout Customer
+  </button>
+</div>
+</div>
 <div
   v-for="room in rooms"
   :key="room.id"
@@ -97,20 +182,34 @@ onMounted(() => {
 
   <div v-if="room.status === 'kosong'">
 
-    <input
-      v-model="name"
-      placeholder="Nama"
-    />
+    <div v-if="!customer">
 
-    <br /><br />
+      <input
+        v-model="name"
+        placeholder="Nama"
+      />
 
-    <input
-      v-model="phone"
-      placeholder="Nomor HP"
-    />
+      <br /><br />
 
-    <br /><br />
+      <input
+        v-model="phone"
+        placeholder="Nomor HP"
+      />
 
+    </div>
+
+    <div v-else>
+
+      <p>
+        👤 {{ customer.name }}
+      </p>
+
+      <p>
+        📞 {{ customer.phone }}
+      </p>
+
+    </div>
+<br /><br />
     <input
       v-model="duration"
       type="number"
