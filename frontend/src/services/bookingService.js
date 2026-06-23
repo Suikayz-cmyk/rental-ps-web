@@ -38,3 +38,19 @@ export const cancelBooking = async (id) => {
 
   return response.data;
 };
+
+export const approveBooking = async (id) => {
+  const token = localStorage.getItem("token");
+
+  const response = await axios.patch(
+    `${API_URL}/${id}/approve`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  );
+
+  return response.data;
+};

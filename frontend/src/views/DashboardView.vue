@@ -4,6 +4,7 @@ import { getDashboardStats } from "../services/dashboardService";
 import { getRooms } from "../services/roomService";
 import { createBooking, getBookings, finishBooking } from "../services/bookingService";
 import "../css/dashboard.css"; 
+import "../css/modal.css";
 
 // State statistik utama
 const stats = ref({

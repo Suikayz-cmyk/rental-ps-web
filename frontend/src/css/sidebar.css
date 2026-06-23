@@ -21,10 +21,6 @@
   flex-direction: column;              /* Sama seperti flex-col */
   padding: 0;                          /* Padding diatur per seksi agar presisi */
   
-  position: fixed;     
-  top: 0;              
-  left: 0;             
-  z-index: 100;        
   overflow: hidden;                    /* Memastikan scrollbar luar tidak muncul */
   flex-shrink: 0;                      /* Sama seperti flex-shrink-0 */
 }

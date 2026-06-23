@@ -58,7 +58,10 @@ const routes = [
 },
 {
   path: "/my-bookings",
-  component: MyBookingsView
+  component: MyBookingsView,
+  meta: {
+    requiresCustomer: true
+  }
 }
 ];
 
@@ -70,12 +73,26 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
 
   const token = localStorage.getItem("token");
+  const customer = localStorage.getItem("customer");
 
   if (
     to.meta.requiresAuth &&
     !token
   ) {
     next("/admin/login");
+    return;
+  }
+
+  if (
+    to.meta.requiresCustomer &&
+    !customer
+  ) {
+    next({
+      path: "/customer/login",
+      query: {
+        redirect: to.fullPath
+      }
+    });
     return;
   }
 

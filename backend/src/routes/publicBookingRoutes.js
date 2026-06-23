@@ -8,6 +8,5 @@ getPublicRooms
 
 router.post('/booking', createPublicBooking);
 router.get('/rooms', getPublicRooms);
-router.post('/booking', createPublicBooking);
 
 module.exports = router;

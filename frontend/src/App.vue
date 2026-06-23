@@ -5,36 +5,20 @@ import Sidebar from "./components/Sidebar.vue";
 
 const route = useRoute();
 
-const publicRoutes = [
-  "/",
-  "/booking",
-  "/admin/login"
-];
-
 const showSidebar = computed(() => {
-
-  const adminRoutes = [
+  return [
     "/dashboard",
     "/rooms",
     "/bookings",
-    "/transactions",
-    "/customers"
-  ];
-
-  return adminRoutes.includes(
-    route.path
-  );
-
+    "/transactions"
+  ].includes(route.path);
 });
-
 </script>
 
 <template>
   <div class="main-app-layout">
-    
     <Sidebar v-if="showSidebar" />
-
-    <div :class="['main-app-content', { 'with-sidebar': showSidebar }]">
+    <div class="main-app-content">
       <router-view />
     </div>
 
@@ -59,13 +43,7 @@ body {
 /* Area konten utama */
 .main-app-content {
   flex: 1;
-  min-width: 0; /* Mencegah tabel atau komponen lebar merusak layout flexbox */
+  min-width: 0;
   box-sizing: border-box;
-  transition: margin-left 0.2s ease; /* Transisi halus saat pindah dari/ke login */
-}
-
-/* Jarak aman digeser ke kanan sebesar lebar sidebar (260px) hanya ketika login berhasil */
-.main-app-content.with-sidebar {
-  margin-left: 260px; 
 }
 </style>

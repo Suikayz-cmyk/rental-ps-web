@@ -10,10 +10,11 @@ const Transaction = sequelize.define('Transaction', {
 
   paymentStatus: {
     type: DataTypes.ENUM(
+      'pending',
       'paid',
-      'unpaid'
+      'cancelled'
     ),
-    defaultValue: 'paid'
+    defaultValue: 'pending'
   }
 
 });

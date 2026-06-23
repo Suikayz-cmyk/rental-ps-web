@@ -15,11 +15,12 @@ const Booking = sequelize.define('Booking', {
 
     status: {
         type: DataTypes.ENUM(
+            'pending',
             'active',
             'finished',
             'cancelled'
         ),
-        defaultValue: 'active'
+      defaultValue: 'pending'
     },
 
     customerId: {
