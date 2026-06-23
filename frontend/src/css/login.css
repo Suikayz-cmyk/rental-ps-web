@@ -1,0 +1,169 @@
+/* Container Utama Full Layar */
+.login-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  box-sizing: border-box;
+  background-color: #0a0a1a;
+}
+
+/* Penampung Gambar Background Belakang */
+.login-bg-blur {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.login-bg-blur img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(8px) scale(1.05); 
+}
+
+/* Lapisan overlay gelap */
+.bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 26, 0.75); 
+}
+
+/* Kotak Login di Tengah */
+.login-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 420px; /* Sedikit dilebarkan agar ideal */
+  background-color: rgba(11, 14, 20, 0.9); 
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(35, 45, 66, 0.5);
+  border-radius: 20px;
+  padding: 40px 36px; /* Padding ditambah supaya input box tidak nempel ke pinggir */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  box-sizing: border-box;
+}
+
+/* Header Logo & Judul */
+.login-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.login-brand .brand-icon {
+  background-color: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  color: #00d4ff;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.login-brand .brand-icon svg { 
+  width: 26px; 
+  height: 26px; 
+}
+
+.login-brand h1 { 
+  font-size: 24px; 
+  font-weight: 700; 
+  color: #ffffff; 
+  margin: 0; 
+}
+
+.login-brand span { 
+  font-size: 13px; 
+  color: #64748b; 
+  margin-top: 2px; 
+}
+
+/* Form & Input Layout (DI-FIX BIAR GAK MENTOK) */
+.login-form { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input-group { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input-group label { 
+  font-size: 13px; 
+  font-weight: 500; 
+  color: #94a3b8; 
+  text-align: left; 
+}
+
+.input-group input {
+  width: 100%;
+  background-color: #111622;
+  border: 1px solid #161b26;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #ffffff;
+  outline: none;
+  box-sizing: border-box; /* Memaksa padding tidak merusak lebar maksimal input */
+  transition: all 0.2s ease;
+}
+
+.input-group input:focus { 
+  border-color: #00d4ff; 
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15); 
+}
+
+/* Kotak Pesan Error */
+.error-alert { 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  background: rgba(239, 68, 68, 0.1); 
+  border: 1px solid rgba(239, 68, 68, 0.2); 
+  padding: 12px; 
+  border-radius: 10px; 
+  box-sizing: border-box;
+}
+
+.error-text { 
+  font-size: 13px; 
+  color: #ef4444; 
+  margin: 0; 
+  text-align: left; 
+}
+
+/* Tombol Submit */
+.login-button {
+  background: linear-gradient(135deg, #00a3ff, #00d4ff);
+  color: #0b0e14;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 6px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.login-button:hover { 
+  transform: translateY(-1px); 
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3); 
+}
