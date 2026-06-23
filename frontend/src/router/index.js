@@ -6,30 +6,98 @@ import RoomManagementView from "../views/RoomManagementView.vue";
 import BookingsView from "../views/BookingsView.vue";
 import TransactionsView from "../views/TransactionsView.vue";
 
+import PublicBookingView from "../views/PublicBookingView.vue";
+import CustomerLoginView from "../views/CustomerLoginView.vue";
+import MyBookingsView from "../views/MyBookingsView.vue";
+import CustomerRegisterView from "../views/CustomerRegisterView.vue";
+
 const routes = [
   {
     path: "/",
-    component: LoginView,
+    component: PublicBookingView
   },
   {
-    path: "/dashboard",
-    component: DashboardView,
+    path: "/admin/login",
+    component: LoginView
   },
   {
-    path: "/rooms",
-    component: RoomManagementView,
-  },
-  {
-    path: "/bookings",
-    component: BookingsView,
-  },
-  {
-    path: "/transactions",
-    component: TransactionsView,
-  },
+  path: "/dashboard",
+  component: DashboardView,
+  meta: {
+    requiresAuth: true
+  }
+},
+{
+  path: "/rooms",
+  component: RoomManagementView,
+  meta: {
+    requiresAuth: true
+  }
+},
+{
+  path: "/bookings",
+  component: BookingsView,
+  meta: {
+    requiresAuth: true
+  }
+},
+{
+  path: "/transactions",
+  component: TransactionsView,
+  meta: {
+    requiresAuth: true
+  }
+},
+{
+  path: "/customer/login",
+  component: CustomerLoginView
+},
+{
+  path: "/customer/register",
+  component: CustomerRegisterView
+},
+{
+  path: "/my-bookings",
+  component: MyBookingsView,
+  meta: {
+    requiresCustomer: true
+  }
+}
 ];
 
-export default createRouter({
+const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
+router.beforeEach((to, from, next) => {
+
+  const token = localStorage.getItem("token");
+  const customer = localStorage.getItem("customer");
+
+  if (
+    to.meta.requiresAuth &&
+    !token
+  ) {
+    next("/admin/login");
+    return;
+  }
+
+  if (
+    to.meta.requiresCustomer &&
+    !customer
+  ) {
+    next({
+      path: "/customer/login",
+      query: {
+        redirect: to.fullPath
+      }
+    });
+    return;
+  }
+
+  next();
+
+});
+
+export default router;

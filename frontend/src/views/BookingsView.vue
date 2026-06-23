@@ -1,13 +1,15 @@
 <script setup>
 import { ref, onMounted } from "vue";
+
 import {
   getBookings,
   createBooking,
   finishBooking,
-  cancelBooking
+  cancelBooking,
+  approveBooking as approveBookingApi
 } from "../services/bookingService";
 import { getRooms } from "../services/roomService";
-import "../css/booking.css"; // Memuat style css terpisah
+import "../css/booking.css";
 
 const bookings = ref([]);
 const rooms = ref([]);
@@ -16,7 +18,7 @@ const customerName = ref("");
 const selectedRoom = ref("");
 const duration = ref(1);
 
-const showForm = ref(false); // Mengatur visibilitas form tambah data
+const showForm = ref(false); 
 
 const loadData = async () => {
   try {
@@ -83,6 +85,31 @@ const deleteBooking = async (id) => {
   }
 };
 
+const approveBooking =
+  async (id) => {
+
+    try {
+
+      await approveBookingApi(id);
+
+      alert(
+        "Booking disetujui"
+      );
+
+      loadData();
+
+    } catch (error) {
+
+      console.error(error);
+      alert(
+        error.response?.data?.message ||
+        "Gagal menyetujui booking"
+      );
+
+    }
+
+};
+
 const formatRupiah = (number) => {
   return new Intl.NumberFormat("id-ID", {
     style: "currency",
@@ -94,8 +121,6 @@ const formatRupiah = (number) => {
 
 <template>
   <div class="booking-page-container">
-    <Sidebar />
-
     <div class="booking-content">
       <div class="booking-header">
         <div>
@@ -138,7 +163,7 @@ const formatRupiah = (number) => {
 
       <div class="booking-list">
         <div 
-          v-for="booking in bookings.filter(b => b.status === 'active')" 
+          v-for="booking in bookings.filter(b => ['pending', 'active'].includes(b.status))"
           :key="booking.id" 
           class="booking-card"
         >
@@ -149,7 +174,15 @@ const formatRupiah = (number) => {
                 {{ booking.Customer?.name || 'Customer' }}
               </span>
             </div>
-            <span class="badge-playing">Sedang Bermain</span>
+            <span
+              class="badge-playing"
+            >
+              {{
+                booking.status === 'pending'
+                  ? 'Menunggu Approval'
+                  : 'Sedang Bermain'
+              }}
+            </span>
           </div>
 
           <div class="room-detail-sub">
@@ -179,12 +212,29 @@ const formatRupiah = (number) => {
             </div>
           </div>
 
-          <button class="btn-finish-payment" @click="finishBookingHandler(booking)">
-            ✓ Selesai & Bayar
-          </button>
+          <div>
+            <button
+              v-if="booking.status === 'pending'"
+              class="btn-finish-payment"
+              @click="approveBooking(booking.id)"
+            >
+              ✓ Approve Booking
+            </button>
+
+            <button
+              v-if="booking.status === 'active'"
+              class="btn-finish-payment"
+              @click="finishBookingHandler(booking)"
+            >
+              ✓ Selesai & Bayar
+            </button>
+          </div>
         </div>
 
-        <div v-if="bookings.filter(b => b.status === 'active').length === 0" class="empty-state">
+        <div
+          v-if="bookings.filter(b => ['pending', 'active'].includes(b.status)).length === 0"
+          class="empty-state"
+        >
           Tidak ada sesi pemesanan atau bermain yang sedang berjalan saat ini.
         </div>
       </div>

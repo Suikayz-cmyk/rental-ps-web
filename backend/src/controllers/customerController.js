@@ -1,5 +1,8 @@
-const { Customer } =
-  require('../models');
+const {
+  Customer,
+  Booking,
+  Room
+} = require('../models');
 
 const getCustomers =
   async (req, res) => {
@@ -143,10 +146,149 @@ const deleteCustomer =
     }
 
 };
+const customerLogin =
+  async (req, res) => {
+
+    try {
+
+      const { phone } =
+        req.body;
+
+      const customer =
+        await Customer.findOne({
+          where: {
+            phone
+          }
+        });
+
+      if (!customer) {
+
+        return res.status(404).json({
+          success: false,
+          message:
+            'Customer tidak ditemukan'
+        });
+
+      }
+
+      res.status(200).json({
+        success: true,
+        message:
+          'Login berhasil',
+        data: customer
+      });
+
+    } catch (error) {
+
+      res.status(500).json({
+        success: false,
+        message: error.message
+      });
+
+    }
+
+};
+
+const getCustomerBookings =
+  async (req, res) => {
+
+    try {
+
+      const { id } =
+        req.params;
+
+      const bookings =
+        await Booking.findAll({
+
+          where: {
+            customerId: id
+          },
+
+          include: [
+            {
+              model: Room
+            }
+          ],
+
+          order: [
+            ['createdAt', 'DESC']
+          ]
+
+        });
+
+      res.status(200).json({
+        success: true,
+        data: bookings
+      });
+
+    } catch (error) {
+
+      res.status(500).json({
+        success: false,
+        message: error.message
+      });
+
+    }
+
+};
+
+const registerCustomer =
+  async (req, res) => {
+
+    try {
+
+      const {
+        name,
+        phone
+      } = req.body;
+
+      const existingCustomer =
+        await Customer.findOne({
+          where: {
+            phone
+          }
+        });
+
+      if (existingCustomer) {
+
+        return res.status(400).json({
+          success: false,
+          message:
+            'Nomor HP sudah terdaftar'
+        });
+
+      }
+
+      const customer =
+        await Customer.create({
+          name,
+          phone
+        });
+
+      res.status(201).json({
+        success: true,
+        message:
+          'Registrasi berhasil',
+        data: customer
+      });
+
+    } catch (error) {
+
+      res.status(500).json({
+        success: false,
+        message: error.message
+      });
+
+    }
+
+};
 
 module.exports = {
   getCustomers,
   createCustomer,
   updateCustomer,
-  deleteCustomer
+  deleteCustomer,
+  customerLogin,
+  getCustomerBookings,
+  registerCustomer
 };

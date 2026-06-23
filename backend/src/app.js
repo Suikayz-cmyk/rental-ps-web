@@ -22,7 +22,12 @@ const customerRoutes =
   );
 
 const authRoutes =
-  require('./routes/authRoutes');
+  require('./routes/authRoutes'
+  );
+
+const publicBookingRoutes = 
+  require('./routes/publicBookingRoutes'
+  );
 
 const app = express();
 
@@ -57,6 +62,11 @@ app.use(
 app.use(
   '/api/customers',
   customerRoutes
+);
+
+app.use(
+  '/api/public', 
+  publicBookingRoutes
 );
 
 module.exports = app;

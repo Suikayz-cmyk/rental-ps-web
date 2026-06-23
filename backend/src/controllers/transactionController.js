@@ -76,7 +76,8 @@ const updateTransaction =
 
       if (
         paymentStatus !== 'paid' &&
-        paymentStatus !== 'unpaid'
+        paymentStatus !== 'pending' &&
+        paymentStatus !== 'cancelled'
       ) {
         return res.status(400).json({
           success: false,

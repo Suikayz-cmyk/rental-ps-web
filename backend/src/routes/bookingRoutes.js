@@ -3,14 +3,16 @@ const express = require('express');
 const router =
   express.Router();
 
+const verifyToken =
+  require('../middleware/authMiddleware');
+
 const {
   getAllBookings,
   createBooking,
   finishBooking,
-  cancelBooking
-} = require(
-  '../controllers/bookingController'
-);
+  cancelBooking,
+  approveBooking
+} = require('../controllers/bookingController');
 
 router.get(
   '/',
@@ -30,6 +32,12 @@ router.patch(
 router.patch(
   '/:id/cancel',
   cancelBooking
+);
+
+router.patch(
+  '/:id/approve',
+  verifyToken,
+  approveBooking
 );
 
 module.exports = router;

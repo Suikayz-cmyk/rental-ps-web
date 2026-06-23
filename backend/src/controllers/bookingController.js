@@ -115,7 +115,8 @@ const createBooking = async (req, res) => {
         customerId: customer.id,
         roomId,
         duration,
-        totalPrice
+        totalPrice,
+        status: 'active'
       });
 
     await room.update({
@@ -155,7 +156,10 @@ const finishBooking = async (req, res) => {
       });
     }
 
-    if (booking.status !== 'active') {
+    if (
+      booking.status !== 'active' &&
+      booking.status !== 'pending'
+    ) {
       return res.status(400).json({
         success: false,
         message:
@@ -168,6 +172,8 @@ const finishBooking = async (req, res) => {
         booking.roomId
       );
 
+    const wasActive = booking.status === 'active';
+
     await booking.update({
       status: 'finished'
     });
@@ -178,9 +184,11 @@ const finishBooking = async (req, res) => {
       paymentStatus: 'paid'
     });
 
-    await room.update({
-      status: 'kosong'
-    });
+    if (room && wasActive) {
+      await room.update({
+        status: 'kosong'
+      });
+    }
 
     res.status(200).json({
       success: true,
@@ -254,9 +262,112 @@ const cancelBooking = async (req, res) => {
 
 };
 
+const approveBooking =
+  async (req, res) => {
+
+    try {
+
+      const booking =
+        await Booking.findByPk(
+          req.params.id
+        );
+
+      if (!booking) {
+
+        return res.status(404).json({
+          success: false,
+          message:
+            'Booking tidak ditemukan'
+        });
+
+      }
+
+      if (booking.status !== 'pending') {
+        return res.status(400).json({
+          success: false,
+          message:
+            'Hanya booking pending yang bisa disetujui'
+        });
+      }
+
+      const room =
+        await Room.findByPk(
+          booking.roomId
+        );
+
+      if (!room) {
+        return res.status(404).json({
+          success: false,
+          message:
+            'Room tidak ditemukan'
+        });
+      }
+
+      if (room.status !== 'kosong') {
+        return res.status(400).json({
+          success: false,
+          message:
+            'Room sedang digunakan'
+        });
+      }
+
+      await booking.update({
+
+        status: 'active'
+
+      });
+
+      await room.update({
+
+        status: 'dipakai'
+
+      });
+
+      const transaction =
+        await Transaction.findOne({
+
+          where: {
+            bookingId:
+              booking.id
+          }
+
+        });
+
+      if (transaction) {
+        await transaction.update({
+
+          paymentStatus:
+            'paid'
+
+        });
+      }
+
+      res.json({
+
+        success: true,
+        message:
+          'Booking berhasil disetujui'
+
+      });
+
+    } catch (error) {
+
+      res.status(500).json({
+
+        success: false,
+        message:
+          error.message
+
+      });
+
+    }
+
+};
+
 module.exports = {
   getAllBookings,
   createBooking,
   finishBooking,
-  cancelBooking
+  cancelBooking,
+  approveBooking
 };

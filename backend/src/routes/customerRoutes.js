@@ -8,8 +8,26 @@ const {
   getCustomers,
   createCustomer,
   updateCustomer,
-  deleteCustomer
+  deleteCustomer,
+  customerLogin,
+  getCustomerBookings,
+  registerCustomer
 } = require('../controllers/customerController');
+
+router.post(
+  '/register',
+  registerCustomer
+);
+
+router.post(
+  '/login',
+  customerLogin
+);
+
+router.get(
+  '/:id/bookings',
+  getCustomerBookings
+);
 
 router.get(
   '/',
