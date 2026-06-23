@@ -1,8 +1,6 @@
 import axios from "axios";
 
-//const API_URL = "http://localhost:5000/api/bookings";
-const API_URL =
-  "https://visible-sneeze-grazing.ngrok-free.dev/api/bookings";
+const API_URL = "http://localhost:5000/api/bookings";
 
 export const getBookings = async () => {
   const response = await axios.get(API_URL);

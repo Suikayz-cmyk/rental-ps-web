@@ -1,9 +1,7 @@
 import axios from "axios";
 
-//const API_URL = "http://localhost:5000/api/customers";
-
 const API_URL =
-  "https://visible-sneeze-grazing.ngrok-free.dev/api/customers";
+  "http://localhost:5000/api/customers";
 
 export const customerLogin =
   async (phone) => {
